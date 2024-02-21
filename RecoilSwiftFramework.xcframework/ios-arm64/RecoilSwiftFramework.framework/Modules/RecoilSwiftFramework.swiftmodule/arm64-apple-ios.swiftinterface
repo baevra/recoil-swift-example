@@ -1,0 +1,271 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target arm64-apple-ios17.2 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name RecoilSwiftFramework
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Combine
+import Foundation
+@_exported import RecoilSwiftFramework
+import Swift
+import SwiftUI
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public typealias RecoilSyncSelectorFamily<Parameter, Value> = (Parameter) -> RecoilSwiftFramework.RecoilSyncSelector<Value> where Parameter : Swift.Hashable
+public typealias RecoilSyncThrowsSelectorFamily<Parameter, Value> = (Parameter) -> RecoilSwiftFramework.RecoilSyncThrowsSelector<Value> where Parameter : Swift.Hashable
+public typealias RecoilAsyncSelectorFamily<Parameter, Value> = (Parameter) -> RecoilSwiftFramework.RecoilAsyncSelector<Value> where Parameter : Swift.Hashable
+public func selectorFamily<Parameter, Value>(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping (any RecoilSwiftFramework.RecoilGetterContext, Parameter) -> Value) -> RecoilSwiftFramework.RecoilSyncSelectorFamily<Parameter, Value> where Parameter : Swift.Hashable
+public func selectorFamily<Parameter, Value>(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping (any RecoilSwiftFramework.RecoilGetterContext, Parameter) throws -> Value) -> RecoilSwiftFramework.RecoilSyncThrowsSelectorFamily<Parameter, Value> where Parameter : Swift.Hashable
+#if compiler(>=5.3) && $AsyncAwait
+public func selectorFamily<Parameter, Value>(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping (any RecoilSwiftFramework.RecoilGetterContext, Parameter) async throws -> Value) -> RecoilSwiftFramework.RecoilAsyncSelectorFamily<Parameter, Value> where Parameter : Swift.Hashable
+#endif
+public typealias RecoilSyncAtomFamily<Parameter, Value> = (Parameter) -> RecoilSwiftFramework.RecoilSyncAtom<Value> where Parameter : Swift.Hashable
+public typealias RecoilSyncThrowsAtomFamily<Parameter, Value> = (Parameter) -> RecoilSwiftFramework.RecoilSyncThrowsAtom<Value> where Parameter : Swift.Hashable
+public typealias RecoilAsyncAtomFamily<Parameter, Value> = (Parameter) -> RecoilSwiftFramework.RecoilAsyncAtom<Value> where Parameter : Swift.Hashable
+public func atomFamily<Parameter, Value>(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping (Parameter) -> Value) -> RecoilSwiftFramework.RecoilSyncAtomFamily<Parameter, Value> where Parameter : Swift.Hashable
+public func atomFamily<Parameter, Value>(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping (Parameter) throws -> Value) -> RecoilSwiftFramework.RecoilSyncThrowsAtomFamily<Parameter, Value> where Parameter : Swift.Hashable
+#if compiler(>=5.3) && $AsyncAwait
+public func atomFamily<Parameter, Value>(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping (Parameter) async throws -> Value) -> RecoilSwiftFramework.RecoilAsyncAtomFamily<Parameter, Value> where Parameter : Swift.Hashable
+#endif
+public func atom<Value>(key: RecoilSwiftFramework.RecoilNodeKey, defaultValue: Value) -> RecoilSwiftFramework.RecoilSyncAtom<Value>
+#if compiler(>=5.3) && $AsyncAwait
+public func atom<Value>(key: RecoilSwiftFramework.RecoilNodeKey, defaultValue: @escaping () async throws -> Value) -> RecoilSwiftFramework.RecoilAsyncAtom<Value>
+#endif
+public struct RecoilSyncAtom<Value> : RecoilSwiftFramework.RecoilSyncNode {
+  public let key: RecoilSwiftFramework.RecoilNodeKey
+  public let get: () -> Value
+  public init(key: RecoilSwiftFramework.RecoilNodeKey, value: Value)
+  public init(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping () -> Value)
+  public func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) -> Value
+}
+public struct RecoilSyncThrowsAtom<Value> : RecoilSwiftFramework.RecoilSyncThrowsNode {
+  public let key: RecoilSwiftFramework.RecoilNodeKey
+  public let get: () throws -> Value
+  public init(key: RecoilSwiftFramework.RecoilNodeKey, value: Value)
+  public init(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping () throws -> Value)
+  public func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) throws -> Value
+}
+public struct RecoilAsyncAtom<Value> : RecoilSwiftFramework.RecoilAsyncNode {
+  public let key: RecoilSwiftFramework.RecoilNodeKey
+  public var get: () async throws -> Value
+  #if compiler(>=5.3) && $AsyncAwait
+  public init(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping () async throws -> Value)
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) async throws -> Value
+  #endif
+}
+public func useRecoilState<Node>(_ node: Node) -> RecoilSwiftFramework.RecoilSyncStateModel<Node> where Node : RecoilSwiftFramework.RecoilSyncNode
+public func useRecoilState<Node>(_ node: Node) -> RecoilSwiftFramework.RecoilAsyncStateModel<Node> where Node : RecoilSwiftFramework.RecoilAsyncNode
+public class RecoilSyncStateModel<Node> : Foundation.ObservableObject where Node : RecoilSwiftFramework.RecoilSyncNode {
+  public var value: Node.Value {
+    get
+    set
+  }
+  public init(node: Node)
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public enum RecoilAsyncStateResult<Value> {
+  case loading
+  case success(Value)
+  case failure(any Swift.Error)
+  public var value: Value? {
+    get
+  }
+}
+public class RecoilAsyncStateModel<Node> : Foundation.ObservableObject where Node : RecoilSwiftFramework.RecoilAsyncNode {
+  public var state: RecoilSwiftFramework.RecoilAsyncStateResult<Node.Value> {
+    get
+  }
+  public var value: Node.Value? {
+    get
+    set
+  }
+  public init(node: Node)
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public func useRecoilValue<Node>(_ node: Node) -> RecoilSwiftFramework.RecoilSyncValueModel<Node> where Node : RecoilSwiftFramework.RecoilSyncNode
+public func useRecoilValue<Node>(_ node: Node) -> RecoilSwiftFramework.RecoilAsyncValueModel<Node> where Node : RecoilSwiftFramework.RecoilAsyncNode
+public class RecoilSyncValueModel<Node> : Foundation.ObservableObject where Node : RecoilSwiftFramework.RecoilSyncNode {
+  public init(node: Node)
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public class RecoilAsyncValueModel<Node> : Foundation.ObservableObject where Node : RecoilSwiftFramework.RecoilAsyncNode {
+  public var value: Node.Value? {
+    get
+  }
+  public init(node: Node)
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public class RecoilAsyncThrowsValueModel<Node> : Foundation.ObservableObject where Node : RecoilSwiftFramework.RecoilAsyncNode {
+  public var value: Node.Value? {
+    get
+  }
+  public init(node: Node)
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public protocol RecoilGetterContext {
+  func get<Node>(_ node: Node) -> Node.Value where Node : RecoilSwiftFramework.RecoilSyncNode
+  func get<Node>(_ node: Node) throws -> Node.Value where Node : RecoilSwiftFramework.RecoilSyncThrowsNode
+  #if compiler(>=5.3) && $AsyncAwait
+  func get<Node>(_ node: Node) async throws -> Node.Value where Node : RecoilSwiftFramework.RecoilAsyncNode
+  #endif
+}
+public protocol RecoilSetterContext {
+  func set<Node>(_ node: Node, _ newValue: Node.Value) where Node : RecoilSwiftFramework.RecoilNode
+}
+public typealias RecoilMutableContext = RecoilSwiftFramework.RecoilGetterContext & RecoilSwiftFramework.RecoilSetterContext
+public func useRecoilCallback<Value>(_ callback: @escaping RecoilSwiftFramework.RecoilSyncCallback<Value>) -> RecoilSwiftFramework.RecoilSyncCallbackModel<Value>
+public func useRecoilCallback<Parameter, Value>(_ callback: @escaping RecoilSwiftFramework.RecoilSyncParameterCallback<Parameter, Value>) -> RecoilSwiftFramework.RecoilSyncParameterCallbackModel<Parameter, Value> where Parameter : Swift.Hashable
+public func useRecoilCallback<Value>(_ callback: @escaping RecoilSwiftFramework.RecoilSyncThrowsCallback<Value>) -> RecoilSwiftFramework.RecoilSyncThrowsCallbackModel<Value>
+public func useRecoilCallback<Parameter, Value>(_ callback: @escaping RecoilSwiftFramework.RecoilSyncThrowsParameterCallback<Parameter, Value>) -> RecoilSwiftFramework.RecoilSyncThrowsParameterCallbackModel<Parameter, Value> where Parameter : Swift.Hashable
+#if compiler(>=5.3) && $AsyncAwait
+public func useRecoilCallback<Value>(_ callback: @escaping RecoilSwiftFramework.RecoilAsyncCallback<Value>) -> RecoilSwiftFramework.RecoilAsyncCallbackModel<Value>
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public func useRecoilCallback<Parameter, Value>(_ callback: @escaping RecoilSwiftFramework.RecoilAsyncParameterCallback<Parameter, Value>) -> RecoilSwiftFramework.RecoilAsyncParameterCallbackModel<Parameter, Value> where Parameter : Swift.Hashable
+#endif
+public class RecoilSyncCallbackModel<Value> : Foundation.ObservableObject {
+  public typealias Callback = RecoilSwiftFramework.RecoilSyncCallback<Value>
+  public init(callback: @escaping RecoilSwiftFramework.RecoilSyncCallbackModel<Value>.Callback)
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public class RecoilSyncParameterCallbackModel<Parameter, Value> : Foundation.ObservableObject where Parameter : Swift.Hashable {
+  public typealias Callback = RecoilSwiftFramework.RecoilSyncParameterCallback<Parameter, Value>
+  public init(callback: @escaping RecoilSwiftFramework.RecoilSyncParameterCallbackModel<Parameter, Value>.Callback)
+  public func callAsFunction(parameter: Parameter) -> Value
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public class RecoilSyncThrowsCallbackModel<Value> : Foundation.ObservableObject {
+  public typealias Callback = RecoilSwiftFramework.RecoilSyncThrowsCallback<Value>
+  public init(callback: @escaping RecoilSwiftFramework.RecoilSyncThrowsCallbackModel<Value>.Callback)
+  public func callAsFunction() throws -> Value
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public class RecoilSyncThrowsParameterCallbackModel<Parameter, Value> : Foundation.ObservableObject where Parameter : Swift.Hashable {
+  public typealias Callback = RecoilSwiftFramework.RecoilSyncThrowsParameterCallback<Parameter, Value>
+  public init(callback: @escaping RecoilSwiftFramework.RecoilSyncThrowsParameterCallbackModel<Parameter, Value>.Callback)
+  public func callAsFunction(parameter: Parameter) throws -> Value
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public class RecoilAsyncCallbackModel<Value> : Foundation.ObservableObject {
+  #if compiler(>=5.3) && $AsyncAwait
+  public typealias Callback = RecoilSwiftFramework.RecoilAsyncCallback<Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public init(callback: @escaping RecoilSwiftFramework.RecoilAsyncCallbackModel<Value>.Callback)
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func callAsFunction() async throws -> Value
+  #endif
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public class RecoilAsyncParameterCallbackModel<Parameter, Value> : Foundation.ObservableObject where Parameter : Swift.Hashable {
+  #if compiler(>=5.3) && $AsyncAwait
+  public typealias Callback = RecoilSwiftFramework.RecoilAsyncParameterCallback<Parameter, Value>
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public init(callback: @escaping RecoilSwiftFramework.RecoilAsyncParameterCallbackModel<Parameter, Value>.Callback)
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func callAsFunction(parameter: Parameter) async throws -> Value
+  #endif
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public struct RecoilSyncSelector<Value> : RecoilSwiftFramework.RecoilSyncNode {
+  public let key: RecoilSwiftFramework.RecoilNodeKey
+  public let get: (any RecoilSwiftFramework.RecoilGetterContext) -> Value
+  public func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) -> Value
+}
+public struct RecoilSyncThrowsSelector<Value> : RecoilSwiftFramework.RecoilSyncThrowsNode {
+  public let key: RecoilSwiftFramework.RecoilNodeKey
+  public let get: (any RecoilSwiftFramework.RecoilGetterContext) throws -> Value
+  public func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) throws -> Value
+}
+public struct RecoilAsyncSelector<Value> : RecoilSwiftFramework.RecoilAsyncNode {
+  public let key: RecoilSwiftFramework.RecoilNodeKey
+  public let get: (any RecoilSwiftFramework.RecoilGetterContext) async throws -> Value
+  #if compiler(>=5.3) && $AsyncAwait
+  public init(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping (any RecoilSwiftFramework.RecoilGetterContext) async throws -> Value)
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) async throws -> Value
+  #endif
+}
+public func selector<Value>(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping (any RecoilSwiftFramework.RecoilGetterContext) -> Value) -> RecoilSwiftFramework.RecoilSyncSelector<Value>
+public func selector<Value>(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping (any RecoilSwiftFramework.RecoilGetterContext) throws -> Value) -> RecoilSwiftFramework.RecoilSyncThrowsSelector<Value>
+#if compiler(>=5.3) && $AsyncAwait
+public func selector<Value>(key: RecoilSwiftFramework.RecoilNodeKey, get: @escaping (any RecoilSwiftFramework.RecoilGetterContext) async throws -> Value) -> RecoilSwiftFramework.RecoilAsyncSelector<Value>
+#endif
+public typealias RecoilSyncCallback<Value> = (any RecoilSwiftFramework.RecoilGetterContext & RecoilSwiftFramework.RecoilSetterContext) -> Value
+public typealias RecoilSyncParameterCallback<Parameter, Value> = (any RecoilSwiftFramework.RecoilGetterContext & RecoilSwiftFramework.RecoilSetterContext, Parameter) -> Value
+public typealias RecoilSyncThrowsCallback<Value> = (any RecoilSwiftFramework.RecoilGetterContext & RecoilSwiftFramework.RecoilSetterContext) throws -> Value
+public typealias RecoilSyncThrowsParameterCallback<Parameter, Value> = (any RecoilSwiftFramework.RecoilGetterContext & RecoilSwiftFramework.RecoilSetterContext, Parameter) throws -> Value
+#if compiler(>=5.3) && $AsyncAwait
+public typealias RecoilAsyncCallback<Value> = (any RecoilSwiftFramework.RecoilGetterContext & RecoilSwiftFramework.RecoilSetterContext) async throws -> Value
+#endif
+#if compiler(>=5.3) && $AsyncAwait
+public typealias RecoilAsyncParameterCallback<Parameter, Value> = (any RecoilSwiftFramework.RecoilGetterContext & RecoilSwiftFramework.RecoilSetterContext, Parameter) async throws -> Value
+#endif
+public typealias RecoilNodeKey = Swift.String
+#if compiler(>=5.3) && $PrimaryAssociatedTypes2
+public protocol RecoilNode<Value> {
+  associatedtype Value
+  var key: RecoilSwiftFramework.RecoilNodeKey { get }
+}
+#else
+public protocol RecoilNode {
+  associatedtype Value
+  var key: RecoilSwiftFramework.RecoilNodeKey { get }
+}
+#endif
+#if compiler(>=5.3) && $PrimaryAssociatedTypes2
+public protocol RecoilSyncNode<Value> : RecoilSwiftFramework.RecoilNode {
+  func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) -> Self.Value
+}
+#else
+public protocol RecoilSyncNode : RecoilSwiftFramework.RecoilNode {
+  func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) -> Self.Value
+}
+#endif
+#if compiler(>=5.3) && $PrimaryAssociatedTypes2
+public protocol RecoilSyncThrowsNode<Value> : RecoilSwiftFramework.RecoilNode {
+  func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) throws -> Self.Value
+}
+#else
+public protocol RecoilSyncThrowsNode : RecoilSwiftFramework.RecoilNode {
+  func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) throws -> Self.Value
+}
+#endif
+#if compiler(>=5.3) && $PrimaryAssociatedTypes2
+public protocol RecoilAsyncNode<Value> : RecoilSwiftFramework.RecoilNode {
+  #if compiler(>=5.3) && $AsyncAwait
+  func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) async throws -> Self.Value
+  #endif
+}
+#else
+public protocol RecoilAsyncNode : RecoilSwiftFramework.RecoilNode {
+  #if compiler(>=5.3) && $AsyncAwait
+  func getValue(_ ctx: any RecoilSwiftFramework.RecoilGetterContext) async throws -> Self.Value
+  #endif
+}
+#endif
+public enum RecoilAsyncLoadableState<T> {
+  case loading(_Concurrency.Task<T, any Swift.Error>, _: Swift.Bool = true)
+  case success(T)
+  case error(any Swift.Error)
+}
+public enum RecoilSyncThrowsLoadableState<T> {
+  case success(T)
+  case error(any Swift.Error)
+}

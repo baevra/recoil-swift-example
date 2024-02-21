@@ -13,18 +13,18 @@
 		8A755BC72B85F17C000DD1F5 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A755BC62B85F17C000DD1F5 /* Badge.swift */; };
 		8A755BC92B85F190000DD1F5 /* ProductsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A755BC82B85F190000DD1F5 /* ProductsView.swift */; };
 		8A755BCB2B85F1A9000DD1F5 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A755BCA2B85F1A9000DD1F5 /* Product.swift */; };
-		8A755BF22B85F473000DD1F5 /* RecoilSwiftFramework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A755BF12B85F473000DD1F5 /* RecoilSwiftFramework.xcframework */; };
-		8A755BF32B85F473000DD1F5 /* RecoilSwiftFramework.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A755BF12B85F473000DD1F5 /* RecoilSwiftFramework.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8A755C162B85F753000DD1F5 /* RecoilSwiftFramework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A755C152B85F753000DD1F5 /* RecoilSwiftFramework.xcframework */; };
+		8A755C172B85F753000DD1F5 /* RecoilSwiftFramework.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A755C152B85F753000DD1F5 /* RecoilSwiftFramework.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		8A755BD32B85F3EA000DD1F5 /* Embed Frameworks */ = {
+		8A755C142B85F6DB000DD1F5 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8A755BF32B85F473000DD1F5 /* RecoilSwiftFramework.xcframework in Embed Frameworks */,
+				8A755C172B85F753000DD1F5 /* RecoilSwiftFramework.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,7 +39,7 @@
 		8A755BC62B85F17C000DD1F5 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		8A755BC82B85F190000DD1F5 /* ProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsView.swift; sourceTree = "<group>"; };
 		8A755BCA2B85F1A9000DD1F5 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
-		8A755BF12B85F473000DD1F5 /* RecoilSwiftFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = RecoilSwiftFramework.xcframework; path = ../RecoilSwiftFramework/build/RecoilSwiftFramework.xcframework; sourceTree = "<group>"; };
+		8A755C152B85F753000DD1F5 /* RecoilSwiftFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = RecoilSwiftFramework.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A755BF22B85F473000DD1F5 /* RecoilSwiftFramework.xcframework in Frameworks */,
+				8A755C162B85F753000DD1F5 /* RecoilSwiftFramework.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +92,7 @@
 		8A755BBD2B85F135000DD1F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8A755BF12B85F473000DD1F5 /* RecoilSwiftFramework.xcframework */,
+				8A755C152B85F753000DD1F5 /* RecoilSwiftFramework.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -142,7 +142,7 @@
 				8A755BA62B85F006000DD1F5 /* Sources */,
 				8A755BA72B85F006000DD1F5 /* Frameworks */,
 				8A755BA82B85F006000DD1F5 /* Resources */,
-				8A755BD32B85F3EA000DD1F5 /* Embed Frameworks */,
+				8A755C142B85F6DB000DD1F5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -339,7 +339,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RecoilSwiftExample/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "RecoilSwiftExample/Preview\\ Content";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -367,7 +367,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RecoilSwiftExample/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "RecoilSwiftExample/Preview\\ Content";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

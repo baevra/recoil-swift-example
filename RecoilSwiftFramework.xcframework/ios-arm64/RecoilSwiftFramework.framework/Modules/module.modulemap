@@ -1,0 +1,11 @@
+framework module RecoilSwiftFramework {
+  umbrella header "RecoilSwiftFramework.h"
+  export *
+
+  module * { export * }
+}
+
+module RecoilSwiftFramework.Swift {
+  header "RecoilSwiftFramework-Swift.h"
+  requires objc
+}
